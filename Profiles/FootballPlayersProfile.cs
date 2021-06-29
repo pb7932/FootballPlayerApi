@@ -9,6 +9,8 @@ namespace FootBallPlayerApi.Profiles
         public FootballPlayersProfile()
         {
             CreateMap<FootballPlayer, FootballPlayerReadDto>();
+            CreateMap<FootballPlayerCreateDto, FootballPlayer>();
+            CreateMap<FootballPlayerUpdateDto, FootballPlayer>();
         }
     }
 }
