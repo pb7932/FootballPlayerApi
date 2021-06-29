@@ -5,7 +5,7 @@ namespace FootballPlayerApi.Data
 {
     public class MockFootballPlayerRepo : IFootballPlayerRepo
     {
-        public IEnumerable<FootballPlayer> getAllPlayer()
+        public IEnumerable<FootballPlayer> getAllPlayers()
         {
             var players = new List<FootballPlayer>(){
                 new FootballPlayer {

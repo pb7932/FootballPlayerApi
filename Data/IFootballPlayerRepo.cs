@@ -5,7 +5,7 @@ namespace FootballPlayerApi.Data
 {
     public interface IFootballPlayerRepo
     {
-        IEnumerable<FootballPlayer> getAllPlayer();
+        IEnumerable<FootballPlayer> getAllPlayers();
         FootballPlayer getPlayerById(int id);
     }
 }
