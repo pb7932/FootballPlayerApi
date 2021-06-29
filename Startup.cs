@@ -32,6 +32,8 @@ namespace FootballPlayerApi
 
             services.AddControllers();
 
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
             services.AddScoped<IFootballPlayerRepo, FootballPlayerRepo>();
         }
 
