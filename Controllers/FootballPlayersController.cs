@@ -24,7 +24,7 @@ namespace FootBallPlayerApi.Controllers
         }
 
         [HttpGet("")]
-        public ActionResult<IEnumerable<FootballPlayer>> GetTModels()
+        public ActionResult<IEnumerable<FootballPlayer>> GetAllPlayers()
         {
             var playersModel = _repository.getAllPlayers();
             var playersReadDto = _mapper.Map<IEnumerable<FootballPlayerReadDto>>(playersModel);
@@ -32,8 +32,8 @@ namespace FootBallPlayerApi.Controllers
             return Ok(playersReadDto);
         }
 
-        [HttpGet("{id}")]
-        public ActionResult<FootballPlayer> GetTModelById(int id)
+        [HttpGet("{id}", Name = "GetPlayerById")]
+        public ActionResult<FootballPlayer> GetPlayerById(int id)
         {
             var playerModel = _repository.getPlayerById(id);
 
@@ -44,6 +44,49 @@ namespace FootBallPlayerApi.Controllers
             var playerReadDto = _mapper.Map<FootballPlayerReadDto>(playerModel);
 
             return Ok(playerReadDto);
+        }
+
+        [HttpPost]
+        public ActionResult<FootballPlayerReadDto> CreatePlayer(FootballPlayerCreateDto playerCreateDto)
+        {
+            var playerModel = _mapper.Map<FootballPlayer>(playerCreateDto);
+            _repository.createPlayer(playerModel);
+
+            var playerReadDto = _mapper.Map<FootballPlayerReadDto>(playerModel);
+
+            return CreatedAtRoute(nameof(GetPlayerById), new { id = playerReadDto.Id }, playerReadDto);
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeletePlayerById(int id)
+        {
+            var playerToDelete = _repository.getPlayerById(id);
+
+            if (playerToDelete == null)
+            {
+                return NotFound();
+            }
+
+            _repository.deletePlayer(playerToDelete);
+
+            return NoContent();
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult UpdatePlayer(int id, FootballPlayerUpdateDto playerUpdateDto)
+        {
+            var playerToUpdate = _repository.getPlayerById(id);
+
+            if (playerToUpdate == null)
+            {
+                return NotFound();
+            }
+
+            _mapper.Map(playerUpdateDto, playerToUpdate);
+
+            _repository.updatePlayer(playerToUpdate);
+
+            return NoContent();
         }
     }
 }

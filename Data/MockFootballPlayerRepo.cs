@@ -5,6 +5,15 @@ namespace FootballPlayerApi.Data
 {
     public class MockFootballPlayerRepo : IFootballPlayerRepo
     {
+        public void createPlayer(FootballPlayer player)
+        {
+            throw new System.NotImplementedException();
+        }
+        public void deletePlayer(FootballPlayer player)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public IEnumerable<FootballPlayer> getAllPlayers()
         {
             var players = new List<FootballPlayer>(){
@@ -46,6 +55,11 @@ namespace FootballPlayerApi.Data
             };
 
             return player;
+        }
+
+        public void updatePlayer(FootballPlayer player)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
