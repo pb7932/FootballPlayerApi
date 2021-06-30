@@ -50,6 +50,13 @@ namespace FootBallPlayerApi.Data
             return player;
         }
 
+        public FootballPlayer getPlayerByLastname(string lastaname)
+        {
+            var player = (FootballPlayer)_context.FootballPlayers.Where(p => p.lastname == lastaname);
+
+            return player;
+        }
+
         public void updatePlayer(FootballPlayer player)
         {
             if (player == null)

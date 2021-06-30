@@ -1,11 +1,13 @@
 using System.ComponentModel.DataAnnotations;
 using FootBallPlayerApi.Validators;
+using Microsoft.AspNetCore.Mvc;
 
 namespace FootballPlayerApi.Models
 {
     public class FootballPlayerCreateDto
     {
         [Required]
+        [Remote(action: "VeirfyLastname", controller: "FootballPlayersValidation")]
         public string lastname { get; set; }
 
         [Required]

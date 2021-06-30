@@ -57,6 +57,11 @@ namespace FootballPlayerApi.Data
             return player;
         }
 
+        public FootballPlayer getPlayerByLastname(string lastaname)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public void updatePlayer(FootballPlayer player)
         {
             throw new System.NotImplementedException();
