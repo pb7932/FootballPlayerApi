@@ -6,12 +6,13 @@ using AutoMapper;
 using FootballPlayerApi.Data;
 using FootballPlayerApi.Models;
 using FootBallPlayerApi.Dtos;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FootBallPlayerApi.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     public class FootballPlayersController : ControllerBase
     {
         private readonly IFootballPlayerRepo _repository;
@@ -24,6 +25,7 @@ namespace FootBallPlayerApi.Controllers
         }
 
         [HttpGet("")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<IEnumerable<FootballPlayer>> GetAllPlayers()
         {
             var playersModel = _repository.getAllPlayers();
@@ -33,6 +35,8 @@ namespace FootBallPlayerApi.Controllers
         }
 
         [HttpGet("{id}", Name = "GetPlayerById")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<FootballPlayer> GetPlayerById(int id)
         {
             var playerModel = _repository.getPlayerById(id);
@@ -47,6 +51,7 @@ namespace FootBallPlayerApi.Controllers
         }
 
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public ActionResult<FootballPlayerReadDto> CreatePlayer(FootballPlayerCreateDto playerCreateDto)
         {
             var playerModel = _mapper.Map<FootballPlayer>(playerCreateDto);
@@ -58,6 +63,8 @@ namespace FootBallPlayerApi.Controllers
         }
 
         [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult DeletePlayerById(int id)
         {
             var playerToDelete = _repository.getPlayerById(id);
@@ -73,6 +80,8 @@ namespace FootBallPlayerApi.Controllers
         }
 
         [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         public IActionResult UpdatePlayer(int id, FootballPlayerUpdateDto playerUpdateDto)
         {
             var playerToUpdate = _repository.getPlayerById(id);
