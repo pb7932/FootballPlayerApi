@@ -11,6 +11,7 @@ namespace FootBallPlayerApi.Profiles
             CreateMap<FootballPlayer, FootballPlayerReadDto>();
             CreateMap<FootballPlayerCreateDto, FootballPlayer>();
             CreateMap<FootballPlayerUpdateDto, FootballPlayer>();
+            CreateMap<FootballPlayer, FootballPlayerUpdateDto>();
         }
     }
 }

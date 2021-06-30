@@ -7,6 +7,7 @@ using FootballPlayerApi.Data;
 using FootballPlayerApi.Models;
 using FootBallPlayerApi.Dtos;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FootBallPlayerApi.Controllers
@@ -96,6 +97,41 @@ namespace FootBallPlayerApi.Controllers
             _repository.updatePlayer(playerToUpdate);
 
             return NoContent();
+        }
+
+        [HttpPatch("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult UpdatePlayerSpecific(int id, JsonPatchDocument<FootballPlayerUpdateDto> patchDoc)
+        {
+            if (patchDoc != null)
+            {
+                var player = _repository.getPlayerById(id);
+
+                if (player == null)
+                {
+                    return NotFound();
+                }
+
+                var playerToPatch = _mapper.Map<FootballPlayerUpdateDto>(player);
+
+                patchDoc.ApplyTo(playerToPatch, ModelState);
+
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+                _mapper.Map(playerToPatch, player);
+
+                _repository.SaveChanges();
+
+                return NoContent();
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            }
         }
     }
 }

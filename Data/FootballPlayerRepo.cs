@@ -22,7 +22,7 @@ namespace FootBallPlayerApi.Data
                 throw new System.ArgumentNullException(nameof(player));
             }
             _context.FootballPlayers.Add(player);
-            _context.SaveChanges();
+            SaveChanges();
         }
 
         public void deletePlayer(FootballPlayer player)
@@ -33,7 +33,7 @@ namespace FootBallPlayerApi.Data
             }
 
             _context.FootballPlayers.Remove(player);
-            _context.SaveChanges();
+            SaveChanges();
         }
 
         public IEnumerable<FootballPlayer> getAllPlayers()
@@ -57,6 +57,11 @@ namespace FootBallPlayerApi.Data
             return player;
         }
 
+        public void SaveChanges()
+        {
+            _context.SaveChanges();
+        }
+
         public void updatePlayer(FootballPlayer player)
         {
             if (player == null)
@@ -76,7 +81,7 @@ namespace FootBallPlayerApi.Data
             playerModel.speed = player.speed;
             playerModel.skill = player.skill;
 
-            _context.SaveChanges();
+            SaveChanges();
         }
     }
 }

@@ -5,6 +5,7 @@ namespace FootballPlayerApi.Data
 {
     public interface IFootballPlayerRepo
     {
+        void SaveChanges();
         IEnumerable<FootballPlayer> getAllPlayers();
         FootballPlayer getPlayerById(int id);
         FootballPlayer getPlayerByLastname(string lastaname);
