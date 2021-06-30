@@ -16,9 +16,7 @@ namespace FootBallPlayerApi.Validators
             $"Shirt number {Number} is retired. Pick a different number.";
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            var player = (FootballPlayerCreateDto)validationContext.ObjectInstance;
-
-            if (player.shirtNumber == (int)value)
+            if ((int)value == Number)
             {
                 return new ValidationResult(GetErrorMessage());
             }
